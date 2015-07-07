@@ -1,0 +1,23 @@
+type project
+owners
+    grebensh@in.tum.de
+authors 
+    grebensh@in.tum.de
+projectUrl
+    http://github.com/sgreben/FsTypeVis
+iconUrl
+    https://raw.githubusercontent.com/sgreben/FsTypeVis/master/docs/files/img/logo.png
+licenseUrl
+    http://github.com/sgreben/FsTypeVis/blob/master/LICENSE.txt
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2015
+tags
+    
+summary
+    Simple visualisation of F# types
+description
+    ...
+
+
