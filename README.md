@@ -48,6 +48,6 @@ Inspired by a [comment](http://fsharpforfunandprofit.com/posts/no-uml-diagrams/#
 
 The tool
 
-- Builds a simple representation of an F# type and its dependencies.
-- Converts this representation to an intermediate graphics language.
+- Builds a [simple representation](/src/FsTypeVis/Simple_type.fs) of an F# type and its dependencies.
+- [Converts](/src/FsTypeVis/Visualisation.fs) this representation to an [intermediate graphics language](/src/FsTypeVis/Graphics.fs).
 - Provides a crappy HTML renderer for the graphics language.
