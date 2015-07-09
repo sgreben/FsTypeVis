@@ -6,7 +6,12 @@ Just started. Some things work.
 
 ## What
 
-Simple visualisation of F# types. Converts this
+Simple visualisation of F# types. Makes this:
+
+![Output sample](/docs/files/img/screenshot.png?raw=true)
+
+...from this:
+
 ```fsharp
 type Customer = 
   { name : string
@@ -30,10 +35,6 @@ type Close = Close of (Order -> Order)
 type Dispatch = Dispatch of (Order -> Order)
 type Receive = Receive of (SpecialOrder -> SpecialOrder)
 ``` 
-
-...into this:
-
-![Output sample](/docs/files/img/screenshot.png?raw=true)
 
 ## Why
 
