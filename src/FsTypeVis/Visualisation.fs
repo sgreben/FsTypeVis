@@ -49,7 +49,6 @@ let visualiseTypeMap (typeMap:Type_map) palette =
         Seq.zip (Map.toSeq typeMap |> Seq.filter (snd >> colorFilter)) palette
         |> Seq.map (fun ((k, _), colors) -> k, colors)
         |> Map.ofSeq
-    printfn "%A\n" colors
     let addTypeColors tid element = 
         match colors.TryFind tid with
         | Some (fg,bg) -> element |> addAttributes [Fg fg; Bg bg]
