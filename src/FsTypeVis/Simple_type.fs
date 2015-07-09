@@ -4,10 +4,13 @@ open Microsoft.FSharp.Reflection
 
 /// Human-readable type name
 type Type_name = string
+
 /// Unique type identifier
 type Type_id = string
+
 /// Record field name
 type Field_name = string
+
 /// Sum type constructor name
 type Constructor_name = string
 
@@ -29,6 +32,7 @@ type Function_type<'T> =
 
 type Named_type<'A> = 'A * Type_name
 
+/// This is how we represent types. Built from System.Type, but more convenient to use.
 type Simple_type<'T> = 
     | Sum of Named_type<Constructor<'T> list>
     | Record of Named_type<Record_field<'T> list>
@@ -131,6 +135,7 @@ module Make =
         else if FSharpType.IsUnion t then Sum(sumType t,_tname t)
         else Opaque(t,_tname t)
 
+    /// Build a type map of the given System.Type t and its dependencies.
     let typeMap t =
         let rec typeMap init t = 
             if Map.containsKey (_tid t) init then init 
