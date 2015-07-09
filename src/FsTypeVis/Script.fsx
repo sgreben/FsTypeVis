@@ -1,5 +1,6 @@
 ﻿#load "Simple_type.fs"
 #load "Graphics.fs"
+#load "Dependencies.fs"
 #load "Visualisation.fs"
 open FsTypeVis
 
@@ -32,8 +33,8 @@ module Example1 =
         | Dispatch of ((Order -> Order) -> Order)
 
     type Receive = 
-        | Receive of (SpecialOrder -> Set<SpecialOrder>)
-    type Dummy = Dispatch*Receive*Confirm*Close
+        | Receive of (SpecialOrder -> SpecialOrder)
+    type Dummy = Dispatch*Receive*Close
 module Example2 =
     type Date = System.DateTime
 
@@ -103,14 +104,12 @@ module Example2 =
 
 
 let ex1() =
-    let myTypeMap = Simple_type.Make.typeMap [typeof<Example1.Dummy>]
-    let myVisMap = Visualisation.visTypeMap myTypeMap Visualisation.Palettes.bassCss
-    Graphics.Rendering.Html.renderToFile @"C:\Users\Sergey\Documents\test2.html" (myVisMap |> Map.toSeq |> Seq.map snd)
+    let myVis = Visualisation.visualiseLayered typeof<Example1.Dummy> Visualisation.Palettes.whiteText
+    Graphics.Rendering.Html.renderToFile @"C:\Users\Sergey\Documents\test2.html" (Seq.singleton myVis)
 
 let ex2() =
-    let myTypeMap = Simple_type.Make.typeMap [typeof<Example2.Dummy>]
-    let myVisMap = Visualisation.visTypeMap myTypeMap Visualisation.Palettes.bassCss
-    Graphics.Rendering.Html.renderToFile @"C:\Users\Sergey\Documents\test3.html" (myVisMap |> Map.toSeq |> Seq.map snd)
+    let myVis = Visualisation.visualiseLayered typeof<Example2.Dummy> Visualisation.Palettes.whiteText
+    Graphics.Rendering.Html.renderToFile @"C:\Users\Sergey\Documents\test3.html" (Seq.singleton myVis)
 
 ex1 ();;
 ex2 ();;

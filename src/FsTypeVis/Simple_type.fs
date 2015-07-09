@@ -2,16 +2,22 @@
 
 open Microsoft.FSharp.Reflection
 
+/// Human-readable type name
 type Type_name = string
+/// Unique type identifier
 type Type_id = string
+/// Record field name
 type Field_name = string
+/// Sum type constructor name
 type Constructor_name = string
 
+/// Sum type constructor
 type Constructor<'T> = {
     name:Constructor_name
     args:'T list
 }
 
+/// Record type field
 type Record_field<'T> = {
     name:Field_name
     typ:'T
@@ -33,6 +39,9 @@ type Simple_type<'T> =
     | Set of 'T
     | Map of 'T * 'T
     | Opaque of Named_type<'T>
+
+/// A map from type identifiers to simple types.
+type Type_map = Map<Type_id,Simple_type<Type_id>>
 
 let rec map f = function
     | Sum (cs,tn) -> Sum (cs |> List.map (fun c -> {name=c.name; args = List.map f c.args}),tn)
@@ -62,14 +71,15 @@ let rec fold f init = function
         foldFunctionType init t
     | Opaque (t,_) -> f init t
 
-let isList(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<list<_>>
-let isSet(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<Set<_>>
-let isMap(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<Map<_, _>>
-let isOption(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<option<_>>
-
+/// Construction of simple type representations from System.Type
 module Make = 
     module Array = 
         let first (a : 'a array) = a.[0]
+
+    let isList(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<list<_>>
+    let isSet(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<Set<_>>
+    let isMap(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<Map<_, _>>
+    let isOption(t : System.Type) = t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<option<_>>
     
     let _targs (t : System.Type) = t.GetGenericArguments()
     let _targ t =  t |> _targs |> Array.first
@@ -121,11 +131,11 @@ module Make =
         else if FSharpType.IsUnion t then Sum(sumType t,_tname t)
         else Opaque(t,_tname t)
 
-    let typeMap ts =
+    let typeMap t =
         let rec typeMap init t = 
             if Map.containsKey (_tid t) init then init 
             else let init = Map.add (_tid t) t init
                  ofSystemType' t |> fold (fun m t -> typeMap m t) init
-        let env = ts |> Seq.fold typeMap Map.empty
+        let env = typeMap Map.empty t
         let env = env |> Map.map (fun _ t -> ofSystemType' t |> map _tid)
         env

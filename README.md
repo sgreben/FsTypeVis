@@ -6,7 +6,34 @@ Just started. Some things work.
 
 ## What
 
-Simple visualisation of F# types. 
+Simple visualisation of F# types. Converts this
+```fsharp
+    type Customer = 
+        { name : string
+          location : string }
+
+    type NormalOrder = 
+        { date : System.DateTime
+          number : string
+          customer : Customer }
+
+    type SpecialOrder = 
+        { date : System.DateTime
+          number : string
+          customer : Customer }
+
+    type Order = 
+        | Normal of NormalOrder
+        | Special of SpecialOrder
+
+    type Close = Close of (Order -> Order)
+    type Dispatch = Dispatch of ((Order -> Order) -> Order)
+    type Receive = Receive of (SpecialOrder -> SpecialOrder)
+``` 
+
+...into this:
+
+![Output sample](/docs/img/screenshot.png?raw=true)
 
 ## Why
 
