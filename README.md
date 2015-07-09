@@ -27,7 +27,7 @@ type Order =
   | Special of SpecialOrder
 
 type Close = Close of (Order -> Order)
-type Dispatch = Dispatch of ((Order -> Order) -> Order)
+type Dispatch = Dispatch of (Order -> Order)
 type Receive = Receive of (SpecialOrder -> SpecialOrder)
 ``` 
 
