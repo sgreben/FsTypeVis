@@ -33,7 +33,7 @@ Simple visualisation of F# types. Converts this
 
 ...into this:
 
-![Output sample](/docs/img/screenshot.png?raw=true)
+![Output sample](/docs/files/img/screenshot.png?raw=true)
 
 ## Why
 
