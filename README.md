@@ -8,27 +8,27 @@ Just started. Some things work.
 
 Simple visualisation of F# types. Converts this
 ```fsharp
-    type Customer = 
-        { name : string
-          location : string }
+type Customer = 
+  { name : string
+    location : string }
 
-    type NormalOrder = 
-        { date : System.DateTime
-          number : string
-          customer : Customer }
+type NormalOrder = 
+  { date : System.DateTime
+    number : string
+    customer : Customer }
 
-    type SpecialOrder = 
-        { date : System.DateTime
-          number : string
-          customer : Customer }
+type SpecialOrder = 
+  { date : System.DateTime
+    number : string
+    customer : Customer }
 
-    type Order = 
-        | Normal of NormalOrder
-        | Special of SpecialOrder
+type Order = 
+  | Normal of NormalOrder
+  | Special of SpecialOrder
 
-    type Close = Close of (Order -> Order)
-    type Dispatch = Dispatch of ((Order -> Order) -> Order)
-    type Receive = Receive of (SpecialOrder -> SpecialOrder)
+type Close = Close of (Order -> Order)
+type Dispatch = Dispatch of ((Order -> Order) -> Order)
+type Receive = Receive of (SpecialOrder -> SpecialOrder)
 ``` 
 
 ...into this:
