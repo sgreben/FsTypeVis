@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Simple_type.fs" />
+    <Compile Include="Dependencies.fs" />
     <Compile Include="Graphics.fs" />
     <Compile Include="Visualisation.fs" />
     <None Include="Script.fsx" />
